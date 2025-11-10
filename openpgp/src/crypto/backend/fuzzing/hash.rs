@@ -30,7 +30,7 @@ impl Digest for NullHasher {
 impl HashAlgorithm {
     /// Whether Sequoia supports this algorithm.
     pub fn is_supported(self) -> bool {
-        true
+        self.digest_size().is_ok()
     }
 
     /// Creates a new hash context for this algorithm.

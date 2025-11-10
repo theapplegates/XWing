@@ -29,8 +29,8 @@ impl Context for NullAEADMode {
 }
 
 impl crate::crypto::backend::interface::Aead for super::Backend {
-    fn supports_algo(_: AEADAlgorithm) -> bool {
-        true
+    fn supports_algo(algo: AEADAlgorithm) -> bool {
+        algo.digest_size().is_ok()
     }
 
     fn supports_algo_with_symmetric(_: AEADAlgorithm,
