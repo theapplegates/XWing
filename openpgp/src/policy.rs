@@ -714,7 +714,7 @@ a_cutoff_list!(SubpacketTagCutoffList, SubpacketTag, 40,
                    ACCEPT,                 // 39. PreferredAEADCiphersuites.
                ]);
 
-a_cutoff_list!(AsymmetricAlgorithmCutoffList, AsymmetricAlgorithm, 23,
+a_cutoff_list!(AsymmetricAlgorithmCutoffList, AsymmetricAlgorithm, 24,
                [
                    Some(Timestamp::Y2014M2), // 0. RSA1024.
                    ACCEPT,                   // 1. RSA2048.
@@ -739,6 +739,7 @@ a_cutoff_list!(AsymmetricAlgorithmCutoffList, AsymmetricAlgorithm, 23,
                    ACCEPT,                   // 20. X448.
                    ACCEPT,                   // 21. Ed25519.
                    ACCEPT,                   // 22. Ed448.
+                   ACCEPT,                   // 23. EdDSA (i.e., Legacy Ed25519).
                ]);
 
 a_cutoff_list!(SymmetricAlgorithmCutoffList, SymmetricAlgorithm, 14,
@@ -1727,12 +1728,14 @@ pub enum AsymmetricAlgorithm {
     Ed25519,
     /// Ed448 (RFC 8032).
     Ed448,
+    /// EdDSA (v4 Ed25519Legacy)
+    EdDSA,
     /// Unknown algorithm.
     Unknown,
 }
 assert_send_and_sync!(AsymmetricAlgorithm);
 
-const ASYMMETRIC_ALGORITHM_VARIANTS: [AsymmetricAlgorithm; 23] = [
+const ASYMMETRIC_ALGORITHM_VARIANTS: [AsymmetricAlgorithm; 24] = [
     AsymmetricAlgorithm::RSA1024,
     AsymmetricAlgorithm::RSA2048,
     AsymmetricAlgorithm::RSA3072,
@@ -1756,6 +1759,7 @@ const ASYMMETRIC_ALGORITHM_VARIANTS: [AsymmetricAlgorithm; 23] = [
     AsymmetricAlgorithm::X448,
     AsymmetricAlgorithm::Ed25519,
     AsymmetricAlgorithm::Ed448,
+    AsymmetricAlgorithm::EdDSA,
 ];
 
 impl AsymmetricAlgorithm {
@@ -1801,6 +1805,7 @@ impl From<AsymmetricAlgorithm> for u8 {
             X448 => 20,
             Ed25519 => 21,
             Ed448 => 22,
+            EdDSA => 23,
             Unknown => 255,
         }
     }

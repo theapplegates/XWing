@@ -26,6 +26,7 @@
      would crash.
 
 ** New functionality
+   - AsymmetricAlgorithm::EdDSA
    - crypto::symmetric::Encryptor
    - crypto::symmetric::Decryptor
    - crypto::symmetric::BlockCipherMode
